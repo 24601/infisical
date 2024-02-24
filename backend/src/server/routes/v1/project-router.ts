@@ -121,8 +121,10 @@ export const registerProjectRouter = async (server: FastifyZodProvider) => {
     onRequest: verifyAuth([AuthMode.JWT, AuthMode.SERVICE_TOKEN, AuthMode.IDENTITY_ACCESS_TOKEN]),
     handler: async (req) => {
       const workspace = await server.services.project.getAProject({
-        filterType: ProjectFilterType.ID,
-        filter: req.params.workspaceId,
+        filter: {
+          type: ProjectFilterType.ID,
+          projectId: req.params.workspaceId
+        },
         actorId: req.permission.id,
         actor: req.permission.type,
         actorOrgId: req.permission.orgId
@@ -174,8 +176,10 @@ export const registerProjectRouter = async (server: FastifyZodProvider) => {
     onRequest: verifyAuth([AuthMode.JWT, AuthMode.IDENTITY_ACCESS_TOKEN]),
     handler: async (req) => {
       const workspace = await server.services.project.deleteProject({
-        filterType: ProjectFilterType.ID,
-        filter: req.params.workspaceId,
+        filter: {
+          type: ProjectFilterType.ID,
+          projectId: req.params.workspaceId
+        },
         actorId: req.permission.id,
         actor: req.permission.type,
         actorOrgId: req.permission.orgId
@@ -237,8 +241,10 @@ export const registerProjectRouter = async (server: FastifyZodProvider) => {
     onRequest: verifyAuth([AuthMode.JWT, AuthMode.IDENTITY_ACCESS_TOKEN]),
     handler: async (req) => {
       const workspace = await server.services.project.updateProject({
-        filterType: ProjectFilterType.ID,
-        filter: req.params.workspaceId,
+        filter: {
+          type: ProjectFilterType.ID,
+          projectId: req.params.workspaceId
+        },
         update: {
           name: req.body.name,
           autoCapitalization: req.body.autoCapitalization

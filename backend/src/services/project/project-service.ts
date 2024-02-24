@@ -289,8 +289,8 @@ export const projectServiceFactory = ({
     return results;
   };
 
-  const deleteProject = async ({ actor, actorId, actorOrgId, filter, filterType }: TDeleteProjectDTO) => {
-    const project = await projectDAL.findProjectByFilter(filter, filterType);
+  const deleteProject = async ({ actor, actorId, actorOrgId, filter }: TDeleteProjectDTO) => {
+    const project = await projectDAL.findProjectByFilter(filter);
 
     const { permission } = await permissionService.getProjectPermission(actor, actorId, project.id, actorOrgId);
     ForbiddenError.from(permission).throwUnlessCan(ProjectPermissionActions.Delete, ProjectPermissionSub.Project);
@@ -315,15 +315,15 @@ export const projectServiceFactory = ({
     return workspaces;
   };
 
-  const getAProject = async ({ actorId, actorOrgId, filter, filterType, actor }: TGetProjectDTO) => {
-    const project = await projectDAL.findProjectByFilter(filter, filterType);
+  const getAProject = async ({ actorId, actorOrgId, filter, actor }: TGetProjectDTO) => {
+    const project = await projectDAL.findProjectByFilter(filter);
 
     await permissionService.getProjectPermission(actor, actorId, project.id, actorOrgId);
     return project;
   };
 
-  const updateProject = async ({ actor, actorId, actorOrgId, update, filter, filterType }: TUpdateProjectDTO) => {
-    const project = await projectDAL.findProjectByFilter(filter, filterType);
+  const updateProject = async ({ actor, actorId, actorOrgId, update, filter }: TUpdateProjectDTO) => {
+    const project = await projectDAL.findProjectByFilter(filter);
 
     const { permission } = await permissionService.getProjectPermission(actor, actorId, project.id, actorOrgId);
     ForbiddenError.from(permission).throwUnlessCan(ProjectPermissionActions.Edit, ProjectPermissionSub.Settings);
