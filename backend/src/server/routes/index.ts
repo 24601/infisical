@@ -227,7 +227,7 @@ export const registerRoutes = async (
   });
 
   const telemetryService = telemetryServiceFactory();
-  const tokenService = tokenServiceFactory({ tokenDAL: authTokenDAL, userDAL, orgDAL });
+  const tokenService = tokenServiceFactory({ tokenDAL: authTokenDAL, userDAL });
   const userService = userServiceFactory({ userDAL });
   const loginService = authLoginServiceFactory({ userDAL, smtpService, tokenService });
   const passwordService = authPaswordServiceFactory({
